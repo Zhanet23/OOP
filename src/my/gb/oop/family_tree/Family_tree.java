@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class Family_tree implements Serializable{
-    private static List<Human> familyTree;
+    private  List<Human> familyTree;
 
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
@@ -312,6 +312,10 @@ public class Family_tree implements Serializable{
 
     @Override
     public String toString() {return FullInfAboutTree();}
+
+
+
+
 
 }
 

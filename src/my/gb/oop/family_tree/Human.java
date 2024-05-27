@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Human extends CreaterHuman implements Serializable {
+public class Human extends CreaterHuman implements Serializable{
 
     private int id;  //уникальный идентификатор человека (инициализация при создании человека)
     private String name;

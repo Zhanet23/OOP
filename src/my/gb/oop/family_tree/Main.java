@@ -1,20 +1,26 @@
 package my.gb.oop.family_tree;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+
+import static java.util.Collections.sort;
 
 public class Main {
     public static void main(String[] args) {
         Family_tree ft1 = new Family_tree();
-        //ft1 = iniTree(); //начальное заполнение древа
+        ft1 = iniTree(); //начальное заполнение древа
 
         // запись в файл
         Writable wt = new FileHandler();
-        //wt.write(ft1, "src/my/gb/oop/family_tree/fam.txt");
+        wt.write(ft1, "src/my/gb/oop/family_tree/fam.txt");
 
         // чтение из файла
-        ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null) System.out.println("древо считалось из файла, оно не пустое");
+        //ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null) System.out.println("древо считалось из файла, оно не пустое");
         System.out.println(ft1);
+
+
 
         //другое дерево
         //Family_tree ft2 = new Family_tree();
@@ -28,7 +34,7 @@ public class Main {
         //System.out.println(ft1);
 
         //2) печать всех данных в базе (сортировка по возрастанию года рождения)
-        //System.out.println(ft1.printSorted());
+       //   System.out.println(ft1.printSorted());
 
         // 3)печать данных о родителях ребенка по id ребенка
         //System.out.println(ft1.findParentsByID(1)); //только отец Николай Алексеевич
