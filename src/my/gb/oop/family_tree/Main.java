@@ -6,14 +6,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Family_tree ft1 = new Family_tree();
-        ft1 = iniTree(); //начальное заполнение древа
+        //ft1 = iniTree(); //начальное заполнение древа
 
         // запись в файл
         Writable wt = new FileHandler();
-        wt.write(ft1, "src/my/gb/oop/family_tree/fam.txt");
+        //wt.write(ft1, "src/my/gb/oop/family_tree/fam.txt");
 
         // чтение из файла
-        //ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null) System.out.println("древо считалось из файла, оно не пустое");
+        ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null) System.out.println("древо считалось из файла, оно не пустое");
         System.out.println(ft1);
 
         //другое дерево
