@@ -1,4 +1,4 @@
-package my.gb.oop.family_tree;
+package my.gb.oop.family_tree.Service;
 
 import java.io.Serializable;
 

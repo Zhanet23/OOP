@@ -1,13 +1,15 @@
-package my.gb.oop.family_tree;
+package my.gb.oop.family_tree.Family_Tree;
 
+import my.gb.oop.family_tree.Human.Human;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Consumer;
 
-public class Family_tree implements Serializable{
-    private  List<Human> familyTree;
+import static java.util.Collections.sort;
+
+public class Family_tree implements Serializable, Iterable<Human>{
+    private List<Human> familyTree;
 
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
@@ -24,7 +26,7 @@ public class Family_tree implements Serializable{
         else {
             if (!familyTree.contains(h)) {
                 familyTree.add(h);
-                sb.append(" ");
+                sb.append(h.getNames(h)).append(" - добавлен в древо");
                 // если у человека есть информация о родителях, то добавим и родителям информацию о ребенке
                 if (h.getMother() != null) {h.getMother().addChild(h);}
                 if (h.getFather() != null) {h.getFather().addChild(h);}
@@ -32,24 +34,41 @@ public class Family_tree implements Serializable{
                 // то надо добавить детям информацию о родителе
                 if (h.getChildren() != null) {addParentToChildren(h);}
             }
-            else sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).append(" уже есть в базе, ").
-                    append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId()));
+            else sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
+                    append(" уже есть в базе, ").
+                    append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId())).
+                    append(" Текущие данные НЕ добавлены в древо.");
         }
         return sb;
     }
 
+    //---------------------------------сортировки------------------------------------------------
     // возвращает отсортированное древо по возрастанию года рождения людей. Возвращает StringBuilder
-    private StringBuilder printSort (){
+    public StringBuilder sortByYearBirthday (){
         StringBuilder sb = new StringBuilder();
         Comparator<Human> cc = new Comparator<Human>() {
             @Override
-            public int compare(Human o1, Human o2) {
-                return o1.getDateB().getYear() - o2.getDateB().getYear();
-            }
+            public int compare(Human o1, Human o2) {return o1.getDateB().getYear() - o2.getDateB().getYear();}
         };
         familyTree.stream().sorted(cc).forEach(sb::append);
         return sb;
     }
+
+    // сортирует список людей по имени
+    public void printSortName (){
+        Collections.sort(familyTree);
+    }
+    public Family_tree sortByAge (){
+        Family_tree ft_sort = new Family_tree();
+        Comparator<Human> cc = new Comparator<Human>() {
+            @Override
+            public int compare(Human o1, Human o2) {return o1.getAge(o1) - o2.getAge(o2);}
+        };
+        familyTree.stream().sorted(cc).forEach(ft_sort::add);
+        return ft_sort;
+    }
+    //--------------------------------------------------------------------------------------
+
 
     // используется в методе addHuman
     private void addParentToChildren (Human h){
@@ -241,33 +260,10 @@ public class Family_tree implements Serializable{
         return sublins;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ---------------------- public methods -------------------------------------------
-    /**
-     * Выдает отсортированное дерево по возрастанию года рождения людей
-     */
-    public StringBuilder printSorted () {
-        return printSort();
-    }
-
 
     /**
-     * Ищет данные о братьях/сестрах чнловека по его id
+     * Ищет данные о братьях/сестрах человека по его id
      */
     public StringBuilder getSublins (int id) {
         return sublins(id);
@@ -314,8 +310,11 @@ public class Family_tree implements Serializable{
     public String toString() {return FullInfAboutTree();}
 
 
+    @Override
+    public Iterator<Human> iterator() {
+        return familyTree.iterator();
+    }
 
 
 
 }
-

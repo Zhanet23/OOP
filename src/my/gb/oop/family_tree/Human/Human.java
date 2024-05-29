@@ -1,4 +1,5 @@
-package my.gb.oop.family_tree;
+package my.gb.oop.family_tree.Human;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -6,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Human extends CreaterHuman implements Serializable{
+public class Human extends CreaterHuman implements Serializable, Comparable<Human>{
 
     private int id;  //уникальный идентификатор человека (инициализация при создании человека)
     private String name;
@@ -27,6 +28,7 @@ public class Human extends CreaterHuman implements Serializable{
     public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother, Human father) {
 
         this();
+        //this.id = id;
         this.name = name; this.secondName = secondName; this.middleName = middleName;
         this.gender = gender;
         this.dateB = dateB; this.dateD = dateD;
@@ -36,26 +38,29 @@ public class Human extends CreaterHuman implements Serializable{
     }
 
     // конструктор, если нет данных о супруге и детях
-    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human mother, Human father) {
-        this(name, secondName, middleName, gender,dateB, dateD, null, null, mother, father);
-    }
+//    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human mother, Human father) {
+//        this(name, secondName, middleName, gender,dateB, dateD, null, null, mother, father);
+//    }
 
-    // конструктор, если нет данных о папе
-    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother) {
-        this(name, secondName, middleName, gender,dateB, dateD, spouse, children, mother, null);
-    }
-    // конструктор, если нет данных о папе и маме
-    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children) {
-        this(name, secondName, middleName, gender,dateB, dateD, spouse, children, null, null);
-    }
-    // конструктор, если нет данных о папе и маме, о детях и о партнере
-    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD) {
-        this(name, secondName, middleName, gender,dateB, dateD, null, null, null, null);
-    }
-    // конструктор, если нет данных о папе, партнере, детях и о дате смерти
-    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, Human mother) {
-        this(name, secondName, middleName, gender,dateB, null, null, null, mother, null);
-    }
+//    // конструктор, если нет данных о папе
+//    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother) {
+//        this(name, secondName, middleName, gender,dateB, dateD, spouse, children, mother, null);
+//    }
+//    // конструктор, если нет данных о папе и маме
+//    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children) {
+//        this(name, secondName, middleName, gender,dateB, dateD, spouse, children, null, null);
+//    }
+//    // конструктор, если нет данных о папе и маме, о детях и о партнере
+//    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, LocalDate dateD) {
+//        this(name, secondName, middleName, gender,dateB, dateD, null, null, null, null);
+//    }
+//    // конструктор, если нет данных о папе, партнере, детях и о дате смерти
+//    public Human(String name, String secondName, String middleName, Gender gender,LocalDate dateB, Human mother) {
+//        this(name, secondName, middleName, gender,dateB, null, null, null, mother, null);
+//    }
+//
+//    public Human(long l, Object o, Object o1, Object o2, Object o3, Object o4, Object o5, Object o6, Object o7, Object o8, Object o9) {
+//    }
     //----------------------------------------------------------------------------------------------------
 
     //----------------------------приватные методы--------------------------------------------------------
@@ -193,6 +198,7 @@ public class Human extends CreaterHuman implements Serializable{
     public void setSpouse(Human spouse) {
         this.spouse = spouse;
     }
+
     //------------------------------------------------------------------------------------------------
 
     public int getAge (Human h) {
@@ -250,6 +256,12 @@ public class Human extends CreaterHuman implements Serializable{
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getSecondName(), getMiddleName(), getDateB(), getDateD(), getSpouse(), getChildren(), getMother(), getFather());
+    }
+
+
+    @Override
+    public int compareTo(Human o) {
+        return this.getName().compareTo(o.getName());
     }
 }
 
