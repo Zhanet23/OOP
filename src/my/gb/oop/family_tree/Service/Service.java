@@ -26,12 +26,14 @@ public class Service {
         return sb.toString();
     }
 
-    public StringBuilder sortByYearBirthday (Family_tree ft) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(ft.sortByYearBirthday());
-        return sb;
+//    public StringBuilder sortByYearBirthday (Family_tree ft) {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(ft.sortByYearBirthday());
+//        return sb;
+//    }
+    public Family_tree sortByYearBirthday (Family_tree ft) {
+        return ft.sortByYearBirthday();
     }
-
     public void sortByName(Family_tree ft){
         ft.printSortName();
     }

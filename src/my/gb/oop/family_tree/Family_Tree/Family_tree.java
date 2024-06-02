@@ -44,14 +44,14 @@ public class Family_tree implements Serializable, Iterable<Human>{
 
     //---------------------------------сортировки------------------------------------------------
     // возвращает отсортированное древо по возрастанию года рождения людей. Возвращает StringBuilder
-    public StringBuilder sortByYearBirthday (){
-        StringBuilder sb = new StringBuilder();
+    public Family_tree sortByYearBirthday (){
+        Family_tree ft_sort = new Family_tree();
         Comparator<Human> cc = new Comparator<Human>() {
             @Override
             public int compare(Human o1, Human o2) {return o1.getDateB().getYear() - o2.getDateB().getYear();}
         };
-        familyTree.stream().sorted(cc).forEach(sb::append);
-        return sb;
+        familyTree.stream().sorted(cc).forEach(ft_sort::add);
+        return ft_sort;
     }
 
     // сортирует список людей по имени
