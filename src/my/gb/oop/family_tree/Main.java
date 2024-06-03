@@ -1,13 +1,15 @@
 package my.gb.oop.family_tree;
 
+import my.gb.oop.family_tree.Family_Tree.FamilyTreeItem;
 import my.gb.oop.family_tree.Family_Tree.Family_tree;
+import my.gb.oop.family_tree.Human.AbstractObjectForTree;
+import my.gb.oop.family_tree.Human.Dog;
 import my.gb.oop.family_tree.Human.Gender;
 import my.gb.oop.family_tree.Human.Human;
 import my.gb.oop.family_tree.Service.FileHandler;
 import my.gb.oop.family_tree.Service.Service;
 import my.gb.oop.family_tree.Service.Writable;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -15,16 +17,16 @@ import static java.util.Collections.sort;
 
 public class Main {
     public static void main(String[] args) {
-        Family_tree ft1 = new Family_tree();
+        Family_tree<Human> ft1 = new Family_tree<>();
         ft1 = iniTree(); //начальное заполнение древа
         //System.out.println(ft1);
 
         //-----------------к ДЗ 3 (1) печать древа с помощью итератора--------------
-        Service s = new Service();
-        //System.out.println(s.GetTreeInfo(ft1));
+        Service<Human> s = new Service<>();
+        System.out.println(s.GetTreeInfo(ft1));
         //-----------------к ДЗ 3 (2) печать сортированного древа-------------------
         //System.out.println("-------------сортировка по году рождения------------");
-        System.out.println(s.sortByYearBirthday(ft1)); //сортировка по году рождения
+        //System.out.println(s.sortByYearBirthday(ft1)); //сортировка по году рождения
         //System.out.println("-------------сортировка по имени--------------------");
         //s.sortByName(ft1); System.out.println(s.GetTreeInfo(ft1));  //сортировка по имени
         //System.out.println("-------------сортировка по возрасту--------------------");
@@ -90,19 +92,18 @@ public class Main {
         //System.out.println(ft1.getSublins(11));
         //System.out.println(ft1.getSublins(111)); //id такого нет в базе
 
-
     }
 
-    public static Family_tree read (String path){
+    public static Family_tree<Human> read (String path){
         Writable wt = new FileHandler();
-        Family_tree t = (Family_tree) wt.read(path);
+        Family_tree<Human> t = (Family_tree<Human>) wt.read(path);
         //System.out.println(t);
         return t;
     }
-
-    public static Family_tree iniTree(){
-        Family_tree ft = new Family_tree();
-
+    //*public static Family_tree iniTree(){
+    public static Family_tree<Human> iniTree(){
+        //Family_tree ft = new Family_tree();
+        Family_tree<Human> ft = new Family_tree<>();
         Human h1 = new Human("Нина","М","Николаевна", Gender.Female,
                 LocalDate.of(1920,1,20),LocalDate.of(2000,6,22),null,null,
                 null,null);
@@ -179,3 +180,16 @@ public class Main {
 
 
 }
+
+
+//Family_tree<AbstractObjectForTree> dog_tree = new Family_tree<>();
+//Dog d1 = new Dog("Шелли","М","P",Gender.Female,LocalDate.of(2022,8,7),null,null,null,null,null);
+//System.out.println(dog_tree.add(d1));
+//
+//Dog d2 = new Dog("Бонифаций","М","А", Gender.Male,LocalDate.of(2021,11,17),null,null,null,null,null);
+//System.out.println(dog_tree.add(d2));
+//d1.setSpouse(d2); d2.setSpouse(d1); //запись информации о партнере
+//
+//Dog d3 = new Dog("Матильда","М","P",Gender.Female,LocalDate.of(2024,1,7),null,null,null,d1,d2);
+//System.out.println(dog_tree.add(d3));
+//System.out.println(dog_tree);
