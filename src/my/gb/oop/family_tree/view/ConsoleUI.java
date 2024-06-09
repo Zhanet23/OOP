@@ -3,9 +3,11 @@ package my.gb.oop.family_tree.view;
 import my.gb.oop.family_tree.model.Family_Tree.FamilyTreeItem;
 import my.gb.oop.family_tree.model.Family_Tree.Family_tree;
 import my.gb.oop.family_tree.model.Human.Gender;
+import my.gb.oop.family_tree.model.Human.Human;
 import my.gb.oop.family_tree.presenter.Presenter;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
@@ -89,7 +91,7 @@ public class ConsoleUI<T extends FamilyTreeItem<T>> implements View{
     }
 
     private Integer checkInputID (){
-        System.out.printf("Введите id объекта [%s - %s]:",1,i);
+        System.out.printf("Введите id объекта [%s - %s]:",1,i-1);
         String line = scanner.nextLine();
         if (checkInfoForInt(line)) {
             int num = Integer.parseInt(line);
