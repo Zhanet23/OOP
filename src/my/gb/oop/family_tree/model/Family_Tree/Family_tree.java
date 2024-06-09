@@ -1,5 +1,7 @@
 package my.gb.oop.family_tree.model.Family_Tree;
 
+import my.gb.oop.family_tree.model.Human.CreaterHuman;
+
 import javax.print.DocFlavor;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -30,10 +32,11 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
                 // то надо добавить детям информацию о родителе
                 if (h.getChildren() != null) {addParentToChildren(h);}
             }
-            else sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
+            else {sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
                     append(" уже есть в базе, ").
                     append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId())).
                     append(" Текущие данные НЕ добавлены в древо.");
+                    CreaterHuman.i = CreaterHuman.i -1;}
             }
         return sb;
     }

@@ -91,7 +91,7 @@ public class ConsoleUI<T extends FamilyTreeItem<T>> implements View{
     }
 
     private Integer checkInputID (){
-        System.out.printf("Введите id объекта [%s - %s]:",1,i-1);
+        System.out.printf("Введите id объекта [%s - %s]:",1,i);
         String line = scanner.nextLine();
         if (checkInfoForInt(line)) {
             int num = Integer.parseInt(line);
