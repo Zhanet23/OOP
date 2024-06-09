@@ -28,3 +28,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 /src/my/gb/oop/examples/
+/src/my/gb/oop/examples/study_group/
