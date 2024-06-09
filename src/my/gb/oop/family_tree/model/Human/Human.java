@@ -1,6 +1,6 @@
-package my.gb.oop.family_tree.Human;
+package my.gb.oop.family_tree.model.Human;
 
-import my.gb.oop.family_tree.Family_Tree.FamilyTreeItem;
+import my.gb.oop.family_tree.model.Family_Tree.FamilyTreeItem;
 
 import java.io.Serializable;
 import java.time.LocalDate;

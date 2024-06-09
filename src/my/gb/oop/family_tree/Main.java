@@ -1,14 +1,15 @@
 package my.gb.oop.family_tree;
 
-import my.gb.oop.family_tree.Family_Tree.FamilyTreeItem;
-import my.gb.oop.family_tree.Family_Tree.Family_tree;
-import my.gb.oop.family_tree.Human.AbstractObjectForTree;
-import my.gb.oop.family_tree.Human.Dog;
-import my.gb.oop.family_tree.Human.Gender;
-import my.gb.oop.family_tree.Human.Human;
-import my.gb.oop.family_tree.Service.FileHandler;
-import my.gb.oop.family_tree.Service.Service;
-import my.gb.oop.family_tree.Service.Writable;
+import my.gb.oop.family_tree.model.Family_Tree.FamilyTreeItem;
+import my.gb.oop.family_tree.model.Family_Tree.Family_tree;
+import my.gb.oop.family_tree.model.Human.Gender;
+import my.gb.oop.family_tree.model.Human.Human;
+import my.gb.oop.family_tree.model.Service.FileHandler;
+import my.gb.oop.family_tree.model.Service.Service;
+import my.gb.oop.family_tree.model.Service.Writable;
+import my.gb.oop.family_tree.presenter.Presenter;
+import my.gb.oop.family_tree.view.ConsoleUI;
+import my.gb.oop.family_tree.view.View;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -17,20 +18,14 @@ import static java.util.Collections.sort;
 
 public class Main {
     public static void main(String[] args) {
-        Family_tree<Human> ft1 = new Family_tree<>();
-        ft1 = iniTree(); //начальное заполнение древа
-        //System.out.println(ft1);
+        Family_tree<Human> ft1 = iniTree(); //начальное заполнение древа
+        //пока беру древо из программы (можно и из файла брать, но пока этот интерфейс выбора не делала)
+        // человек тоже добавляется с минимальными данными, так как данных оч много обрабатывать на ввод,
+        // взяла пока добавление только по ФИО (остальные поля нулевые)
+        // цель этой версии программы - показать структуру MVP
+        View v = new ConsoleUI<>(ft1); //передать, с каким деревом мы будем работать,так как их может быть не одно
+        v.start();
 
-        //-----------------к ДЗ 3 (1) печать древа с помощью итератора--------------
-        Service<Human> s = new Service<>();
-        System.out.println(s.GetTreeInfo(ft1));
-        //-----------------к ДЗ 3 (2) печать сортированного древа-------------------
-        //System.out.println("-------------сортировка по году рождения------------");
-        //System.out.println(s.sortByYearBirthday(ft1)); //сортировка по году рождения
-        //System.out.println("-------------сортировка по имени--------------------");
-        //s.sortByName(ft1); System.out.println(s.GetTreeInfo(ft1));  //сортировка по имени
-        //System.out.println("-------------сортировка по возрасту--------------------");
-        //System.out.println(s.sortByAge(ft1));
 
 
         //----------------------к ДЗ 2----------------------------------------------
@@ -39,24 +34,17 @@ public class Main {
         //wt.write(ft1, "src/my/gb/oop/family_tree/fam.txt");
 
         // чтение из файла
-        //ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null) System.out.println("древо считалось из файла, оно не пустое");
+        //ft1 = read("src/my/gb/oop/family_tree/fam.txt");if (ft1 != null)
         //System.out.println(ft1);
         //----------------------------------------------------------------------------
 
-
-        //другое дерево
-        //Family_tree ft2 = new Family_tree();
-//        Human h17 = new Human("Тарас","В","Владимирович", Gender.Male,LocalDate.of(2005,3,25),null,null,null,null);
-//        ft2.add(h17);   //другое древо
-//        //System.out.println(h17);
-//        h12.setSpouse(h15);h14.setSpouse(h12);System.out.println(ft.add(h17));
 
         //-------------------------функционал------------------------------------------------
         // 1) печать всех данных в базе (не сортировано)
         //System.out.println(ft1);
 
         //2) печать всех данных в базе (сортировка по возрастанию года рождения)
-       //   System.out.println(ft1.printSorted());
+        //System.out.println(ft1.printSorted());
 
         // 3)печать данных о родителях ребенка по id ребенка
         //System.out.println(ft1.findParentsByID(1)); //только отец Николай Алексеевич
@@ -89,6 +77,7 @@ public class Main {
         //System.out.println(ft1.getSublins(15));
         //System.out.println(ft1.getSublins(12));
         //System.out.println(ft1.getSublins(9));
+        //System.out.println(s.getSublins(9,ft1));
         //System.out.println(ft1.getSublins(11));
         //System.out.println(ft1.getSublins(111)); //id такого нет в базе
 
@@ -97,12 +86,10 @@ public class Main {
     public static Family_tree<Human> read (String path){
         Writable wt = new FileHandler();
         Family_tree<Human> t = (Family_tree<Human>) wt.read(path);
-        //System.out.println(t);
         return t;
     }
-    //*public static Family_tree iniTree(){
+
     public static Family_tree<Human> iniTree(){
-        //Family_tree ft = new Family_tree();
         Family_tree<Human> ft = new Family_tree<>();
         Human h1 = new Human("Нина","М","Николаевна", Gender.Female,
                 LocalDate.of(1920,1,20),LocalDate.of(2000,6,22),null,null,
@@ -181,15 +168,3 @@ public class Main {
 
 }
 
-
-//Family_tree<AbstractObjectForTree> dog_tree = new Family_tree<>();
-//Dog d1 = new Dog("Шелли","М","P",Gender.Female,LocalDate.of(2022,8,7),null,null,null,null,null);
-//System.out.println(dog_tree.add(d1));
-//
-//Dog d2 = new Dog("Бонифаций","М","А", Gender.Male,LocalDate.of(2021,11,17),null,null,null,null,null);
-//System.out.println(dog_tree.add(d2));
-//d1.setSpouse(d2); d2.setSpouse(d1); //запись информации о партнере
-//
-//Dog d3 = new Dog("Матильда","М","P",Gender.Female,LocalDate.of(2024,1,7),null,null,null,d1,d2);
-//System.out.println(dog_tree.add(d3));
-//System.out.println(dog_tree);

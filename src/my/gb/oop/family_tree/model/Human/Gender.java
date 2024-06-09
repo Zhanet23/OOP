@@ -1,6 +1,5 @@
-package my.gb.oop.family_tree.Human;
+package my.gb.oop.family_tree.model.Human;
 
-import javax.swing.*;
 import java.io.Serializable;
 
 public enum Gender implements Serializable {

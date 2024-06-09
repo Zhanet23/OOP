@@ -1,7 +1,6 @@
-package my.gb.oop.family_tree.Family_Tree;
+package my.gb.oop.family_tree.model.Family_Tree;
 
-import my.gb.oop.family_tree.Human.Human;
-
+import javax.print.DocFlavor;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -9,21 +8,15 @@ import java.util.*;
 import static java.util.Collections.sort;
 
 public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, Iterable<T>{
-    //*public class Family_tree implements Serializable, Iterable<Human>{
     private List<T> familyTree;
-    //*private List<Human> familyTree;
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
         this(new ArrayList<>());
     }
 
-    public Family_tree(List<T> familyTree) {
-        //*public Family_tree(List<Human> familyTree) {
-        this.familyTree = familyTree;
-    }
+    public Family_tree(List<T> familyTree) {this.familyTree = familyTree;}
     //----------------------------------------------------------------------------------------
-    //*private StringBuilder addHuman (Human h) {
-    private StringBuilder addHuman (T h) {
+     private StringBuilder addHuman (T h) {
         StringBuilder sb = new StringBuilder();
         if (h == null) sb.append("не введен человек");
         else {
@@ -37,13 +30,11 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
                 // то надо добавить детям информацию о родителе
                 if (h.getChildren() != null) {addParentToChildren(h);}
             }
-            //*else sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
-            //*        append(" уже есть в базе, ").
-            //*        append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId())).
-            //*        append(" Текущие данные НЕ добавлены в древо.");
-            else sb.append("идентичная информация уже есть");
-
-        }
+            else sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
+                    append(" уже есть в базе, ").
+                    append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId())).
+                    append(" Текущие данные НЕ добавлены в древо.");
+            }
         return sb;
     }
 
@@ -51,10 +42,8 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     // возвращает отсортированное древо по возрастанию года рождения людей. Возвращает StringBuilder
     public Family_tree<T> sortByYearBirthday (){
         Family_tree<T> ft_sort = new Family_tree<>();
-        //*Comparator<Human> cc = new Comparator<Human>() {
         Comparator<T> cc = new Comparator<T>() {
             @Override
-            //public int compare(Human o1, Human o2) {return o1.getDateB().getYear() - o2.getDateB().getYear();}
             public int compare(T o1, T o2) {return o1.getDateB().getYear() - o2.getDateB().getYear();}
         };
         familyTree.stream().sorted(cc).forEach(ft_sort::add);
@@ -62,17 +51,23 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     }
 
     // сортирует список людей по имени
-    public void printSortName (){
-        Collections.sort(familyTree);
-    }
-    //*public Family_tree sortByAge (){
-    //*Family_tree ft_sort = new Family_tree();
-    public Family_tree<T> sortByAge (){
+    public Family_tree<T> printSortName (){
+        //Collections.sort(familyTree);
         Family_tree<T> ft_sort = new Family_tree<>();
-        //*Comparator<Human> cc = new Comparator<Human>() {
         Comparator<T> cc = new Comparator<T>() {
             @Override
-            //*public int compare(Human o1, Human o2) {return o1.getAge(o1) - o2.getAge(o2);}
+            public int compare(T o1, T o2) {return o1.getName().compareTo(o2.getName());}
+        };
+        familyTree.stream().sorted(cc).forEach(ft_sort::add);
+        return ft_sort;
+
+
+    }
+
+    public Family_tree<T> sortByAge (){
+        Family_tree<T> ft_sort = new Family_tree<>();
+        Comparator<T> cc = new Comparator<T>() {
+            @Override
             public int compare(T o1, T o2) {return o1.getAge(o1) - o2.getAge(o2);}
         };
         familyTree.stream().sorted(cc).forEach(ft_sort::add);
@@ -80,17 +75,13 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     }
     //--------------------------------------------------------------------------------------
 
-
     // используется в методе addHuman
-    //*private void addParentToChildren (Human h){
     private void addParentToChildren (T h){
         //добавляем отца
         if (String.valueOf(h.getGender()).equals("Male")) {
-            //*for (Human child : h.getChildren()) { child.addFather(h);}
             for (T child : h.getChildren()) { child.addFather(h);}
         }
         else {
-            //*for (Human child : h.getChildren()) {child.addMother(h);}
             for (T child : h.getChildren()) {child.addMother(h);}
         }
     }
@@ -108,9 +99,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     /**
      * поиск человека по его ФИО, возвращает данные типа Human
      */
-    //*private Human findByFIO (String name, String middleName, String secondName) {
-    private T findByFIO (String name, String middleName, String secondName) {
-        //*Human tempHuman = null;
+     private T findByFIO (String name, String middleName, String secondName) {
         T tempHuman = null;
         for (var i : familyTree) {
             if (i.getName().equalsIgnoreCase(name) && i.getMiddleName().equalsIgnoreCase(middleName) &&
@@ -123,9 +112,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     /**
      * поиск человека по его id, возвращает данные типа Human
      */
-    //*private Human findByID (int id){
     private T findByID (int id){
-        //Human tempHuman = null;
         T tempHuman = null;
         for (var i : familyTree) {
             if (i.getId() == id) {tempHuman = i; break;}
@@ -137,19 +124,16 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
      * возвращает ФИО, д.рожд и смерти(если человек умер уже), и возраст человека,
      * на вход принимает переменную типа Human, возвращает данные типа StringBuilder
      */
-    //*private StringBuilder getFio_Dates (Human human) {
-    private StringBuilder getFio_Dates (T human) {
-
+     private StringBuilder getFio_Dates (T obj) {
         LocalDate now = LocalDate.now();
         StringBuilder sb = new StringBuilder();
-        if (human != null) {
-            sb.append(human.getFIO(human)).append(", ").append(human.getDatesOfHuman(human));
+        if (obj != null) {
+            sb.append(obj.getFIO(obj)).append(", ").append(obj.getDatesOfHuman(obj));
         }
         return sb;
     }
 
     private StringBuilder findParentsByID_ft (int id){
-        //*Human child; StringBuilder sb = new StringBuilder();
         T child; StringBuilder sb = new StringBuilder();
         child = findByID(id); // ищем в базе человека по id, для которого хотим напечатать инф о его родителях
         if (child != null) {
@@ -168,7 +152,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
 
     private StringBuilder findParentsByFIO_ft (String name, String middleName, String secondName){
         StringBuilder sb = new StringBuilder();
-        //*Human child = findByFIO(name,middleName, secondName);
         T child = findByFIO(name,middleName, secondName);
         if (child != null)  sb.append(findParentsByID_ft (child.getId()));
         else {
@@ -182,16 +165,15 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     // выдает полную информацию о человеке по его фио
     private StringBuilder findHumanByFIO_ft(String name, String middleName, String secondName) {
         StringBuilder sb = new StringBuilder();
-        //*Human human;
-        T human;
-        human = findByFIO (name, middleName, secondName);
-        if (human != null) { //человек есть в базе
-            sb.append(human);
+        T obj;
+        obj = findByFIO (name, middleName, secondName);
+        if (obj != null) { //человек есть в базе
+            sb.append(obj);
             // добавим информацию о братьях/сестрах
             sb.append("информация о сестрах/братьях:").append("\n");
             //*List<Human> sublins = new ArrayList<>();
             List<T> sublins = new ArrayList<>();
-            sublins = getSubl(human.getId());
+            sublins = getSubl(obj.getId());
             if (!sublins.isEmpty()) {
                 for (var i : sublins) {
                     sb.append(i.getFIO(i)).append(", ").append(i.getDatesOfHuman(i)).append("\n");
@@ -204,8 +186,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         return sb;
     }
 
-    private StringBuilder findChildrenByIDParent_ft (int id){      // поиск человека по id
-        //*Human temp = findByID(id); //нашли родителя по id
+    private StringBuilder findChildrenByIDParent_ft (int id){      // поиск объекта по id
         T temp = findByID(id); //нашли родителя по id
         StringBuilder sb = new StringBuilder();
         if (temp != null) {  //если родитель есть в базе
@@ -225,7 +206,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
 
     private StringBuilder findChildrenByFIOParent_ft (String name, String middleName, String secondName) {
         StringBuilder sb = new StringBuilder();
-        //*Human parent = findByFIO(name, middleName,secondName); //сначала ищем родителя по заданному ФИО в базе
         T parent = findByFIO(name, middleName,secondName); //сначала ищем родителя по заданному ФИО в базе
         if (parent != null) {
             sb.append(findChildrenByIDParent(parent.getId())); //получаем инф по id найденного родителя
@@ -233,10 +213,9 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         else sb.append("такого человека нет в древе");
         return sb;
     }
-    //*private List<Human> getParents (Human h){
+
     private List<T> getParents (T h){
         List<T> parents = new ArrayList<>();
-        //*List<Human> parents = new ArrayList<>();
         if (h.getMother() != null) parents.add(h.getMother());
         if (h.getFather() != null ) parents.add(h.getFather());
         return parents;
@@ -245,11 +224,9 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     // вызов из метода getSublins
     private StringBuilder sublins (int id) { //родных и сводных
         StringBuilder sb = new StringBuilder();
-        //*Human h = findByID(id); //получили человека, для которого ищем сестер/братьев
         T h = findByID(id); //получили человека, для которого ищем сестер/братьев
         if (h == null) sb.append("человека с таким id нет в базе");
         else {
-            //*List<Human> sublins = new ArrayList<>();
             List<T> sublins = new ArrayList<>();
             sb.append("\n").append("Информация о сестрах/братьях для человека: ").append(h.getFIO(h)).append("\n");
             sublins = getSubl(id); //получили список братьев и сестер
@@ -259,7 +236,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
                     String str = String.valueOf(findByID(idh).getGender());
                     if (str.equals("Male")) t = "брат"; else t = "сестра";
                     sb.append(t).append(":\n");
-                    //*Human s = findByID(idh);
                     T s = findByID(idh);
                     sb.append(s.getFIO(s)).append(", ").append(s.getDatesOfHuman(s)).append("\n");
                 }
@@ -270,10 +246,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     }
 
     //возвращает список sublins List<Human>
-    //*private List<Human> getSubl (int id) { //родных и сводных
-    private List<T> getSubl (int id) { //родных и сводных
-        //*List<Human> sublins = new ArrayList<>(); //инициация списка sublins
-        //*Human h = findByID(id); //получили человека, для которого ищем сестер/братьев
+     private List<T> getSubl (int id) { //родных и сводных
         List<T> sublins = new ArrayList<>(); //инициация списка sublins
         T h = findByID(id); //получили человека, для которого ищем сестер/братьев
         if (h != null) {
@@ -281,9 +254,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
             // в set нельзя добавить Human, тк equals по всем полям, кроме id
             //это для того, чтобы не добавлялась абсолютно идентичная инф о человеке, а id считается автоматически
             Set<Integer> sub = new HashSet<>();
-            //*for (Human par : getParents(h)){ //для каждого родителя
             for (T par : getParents(h)){ //для каждого родителя
-                //*for (Human child : par.getChildren()) { //по списку детей родителя
                 for (T child : par.getChildren()) { //по списку детей родителя
                     if (h.getId() != child.getId()) sub.add(child.getId());
                 }
@@ -307,7 +278,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     /**
      * Добавляет данные о человеке в базу данных
      */
-    //*public StringBuilder add (Human human) {return addHuman(human);}
+
     public StringBuilder add (T human) {return addHuman(human);}
 
     /**
@@ -332,6 +303,11 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     public StringBuilder findHumanByFIO(String name, String middleName, String secondName) {
         return findHumanByFIO_ft(name, middleName, secondName);
     }
+    public StringBuilder findOjectdByID (int id){
+        T temp; temp = findByID(id);
+        return findHumanByFIO_ft(temp.getName(), temp.getMiddleName(), temp.getSecondName());
+
+    }
 
     //поиск детей по ID родителя
     public StringBuilder findChildrenByIDParent (int id){      // поиск человека по id
@@ -347,10 +323,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     public String toString() {return FullInfAboutTree();}
 
 
-    //*@Override
-    //*public Iterator<Human> iterator() {
-    //*    return familyTree.iterator();
-    //*}
     @Override
     public Iterator<T> iterator() {
         return familyTree.iterator();

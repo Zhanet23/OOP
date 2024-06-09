@@ -1,7 +1,6 @@
-package my.gb.oop.family_tree.Family_Tree;
+package my.gb.oop.family_tree.model.Family_Tree;
 
-import my.gb.oop.family_tree.Human.Gender;
-import my.gb.oop.family_tree.Human.Human;
+import my.gb.oop.family_tree.model.Human.Gender;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package my.gb.oop.family_tree.Service;
+package my.gb.oop.family_tree.model.Service;
 
 import java.io.*;
 
