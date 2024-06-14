@@ -8,6 +8,8 @@ import my.gb.oop.family_tree.model.Human.Human;
 import java.time.LocalDate;
 import java.util.List;
 
+import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
+
 public class Service {
     Family_tree<Human> ft;
     public Service(Family_tree<Human> ft) {this.ft = ft;}
@@ -15,14 +17,18 @@ public class Service {
 
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
-        return (Family_tree<Human>)wt.read(path);
+        Family_tree<Human> ft = (Family_tree<Human>)wt.read(path);
+        i = ft.getSizeTree();
+        return ft;
     }
 
     public Family_tree<Human> getNewTree (){
+        i = 0;
         return new Family_tree<>();
     }
     public Family_tree<Human> getTreeFromHear(){
         InicialisationTree iT = new InicialisationTree();
+        i = 0;
         return iT.ini();
     }
 
@@ -40,7 +46,9 @@ public class Service {
         wt.write(ft,path);
     }
 
-
+    public int getSizeTree(){
+        return ft.getSizeTree();
+    }
 
     public Family_tree<Human> sortByYearBirthday () {
         return ft.sortByYearBirthday();
@@ -65,12 +73,11 @@ public class Service {
     }
 
     public StringBuilder add (String name, String secondName, String middleName, Gender gender, LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother, Human father) {
+        i = ft.getSizeTree();
         Human h = new Human(name,secondName,middleName,gender,dateB,dateD,spouse,children,mother,father);
         return ft.add(h);}   // добавить объект в дерево
 
     public StringBuilder getSublins (int id) {return ft.getSublins(id);} // найти братьев/сестер по коду объекта
 
-    public int getTreeSize () {
-        return ft.getSizeTree();
-    }
+
     }

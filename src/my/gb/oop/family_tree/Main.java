@@ -11,12 +11,8 @@ import static java.util.Collections.sort;
 
 public class Main {
     public static void main(String[] args) {
-
-
         View v = new ConsoleUI(null);
-
         v.start();
-
     }
 }
 

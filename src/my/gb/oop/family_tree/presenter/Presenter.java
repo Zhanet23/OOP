@@ -17,11 +17,12 @@ import java.util.List;
     private View v;
     private Service service;
 
-    public Presenter(View v,Family_tree<Human> ft) {
-        this.v = v;
-        service = new Service(ft);
 
-    }
+        public Presenter(View v,Family_tree<Human> ft) {
+            this.v = v;
+            service = new Service(ft);
+        }
+
 
    public Family_tree<Human> getTreeFromFile(String path) {
        return service.getTreeFromFile(path);
@@ -33,6 +34,9 @@ import java.util.List;
 
    public Family_tree<Human> getNewTree(){
         return service.getNewTree();
+   }
+   public int getSizeTree(){
+        return service.getSizeTree();
    }
     public void SaveToFile (Family_tree<Human> ft,String path) {
          service.SaveToFile(ft,path);
@@ -79,9 +83,5 @@ import java.util.List;
         service.add(name, secondName,middleName, gender,dateB, dateD, spouse, children,mother, father);
     }
 
-
-    public int getTreeSize(){
-        return service.getTreeSize();
-    }
 
     }

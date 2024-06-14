@@ -67,13 +67,13 @@ public class ConsoleUI implements View{
 
     @Override
     public void start() {
-        ini(path); //с каким деревом будем работать
-
+        ini(path); //с каким деревом начинаем работать
         while(flag){
             printMenu();
             action();
         }
     }
+
     public void finish() {
         System.out.println("Работа с древом закончена");
         flag = false;
@@ -81,35 +81,31 @@ public class ConsoleUI implements View{
 
     public void getTreeFromFile() {
         ft = presenter.getTreeFromFile(path);
-        i = ft.getSizeTree();
-//        System.out.println("=======================");
-//        System.out.println(i);
-//        System.out.println(i+ft.getSizeTree());
     }
 
     public Family_tree<Human> getNewTree() {
         ft =presenter.getNewTree();
         presenter = new Presenter(this, ft);
-        i = 0;
         return ft;
 
     }
 
     public void saveToFile () {
-        presenter = new Presenter(this, ft);
         presenter.SaveToFile(ft,path);
     }
+
     public Family_tree<Human> getTreeFromHear(){
-        i = 0;
         ft = presenter.getTreeFromHear();
-        presenter = new Presenter(this, ft);
         return ft;
     }
 
     @Override
     public void printAnswer(String info) {System.out.println(info);}
 
-    public void getTreeInfo() {presenter = new Presenter(this, ft); presenter.getTreeInfo();}
+    public void getTreeInfo() {
+        presenter = new Presenter(this, ft);  //обязательно переопределять, тк иначе будет инф из предыдущего дерева
+        presenter.getTreeInfo();
+    }
 
     public void sortByAge() {presenter.sortByAge();}
 
@@ -117,7 +113,7 @@ public class ConsoleUI implements View{
     public void sortByYearBirthday(){presenter.sortByYearBirthday();}
 
     public void addObject(){
-        //System.out.println(ft); //+
+
         System.out.println("Введите имя: ");       String name = scanner.nextLine();
         System.out.println("Введите отчество: ");  String middleName = scanner.nextLine();
         System.out.println("Введите фамилию: ");   String secondName = scanner.nextLine();
@@ -128,9 +124,7 @@ public class ConsoleUI implements View{
         //пока сделано кратко только, чтобы проверить работу, что человек добавляется в дерево
         //только фио и дата рождения
 
-        //presenter = new Presenter(this, ft);
-        i = ft.getSizeTree();
-        presenter.addObject(name,secondName,middleName,null,
+         presenter.addObject(name,secondName,middleName,null,
                 LocalDate.of(dateB.getYear(),dateB.getMonthValue(),dateB.getDayOfMonth()),
                 null,null,null,null,null);
     }
@@ -150,33 +144,33 @@ public class ConsoleUI implements View{
     public void findObjectByID(){
         int id = checkInputID ();
         if (id != -1) {presenter.findObjectByID(id);}
-        else System.out.println("не правильно введен id");
+        else printError();
     }
 
     public void getParentsByIDChild(){
         int id = checkInputID ();
         if (id != -1) {presenter.getParentsByIDChild(id);}
-        else System.out.println("не правильно введен id");
+        else printError();
     }
 
     public void getChildrenByIDParent(){
         int id = checkInputID ();
         if (id != -1) {presenter.getChildrenByIDParent(id);}
-        else System.out.println("не правильно введен id");
+        else printError();
     }
 
     public void getSublins(){
         int id = checkInputID ();
         if (id != -1) {presenter.getSublins(id);}
-        else System.out.println("не правильно введен id");
+        else printError();
     }
 
     private Integer checkInputID (){
-        System.out.printf("Введите id объекта [%s - %s]:",1,ft.getSizeTree()); //presenter.getTreeSize()-1);
+        System.out.printf("Введите id объекта [%s - %s]:",1,getSizeTree());
         String line = scanner.nextLine();
         if (checkInfoForInt(line)) {
             int num = Integer.parseInt(line);
-            if (num >=1 && num <= ft.getSizeTree()) return num; //presenter.getTreeSize()-1) return num;
+            if (num >=1 && num <= getSizeTree()) return num;
             else return -1;
         }
         else return -1;
@@ -208,5 +202,8 @@ public class ConsoleUI implements View{
         } else {printError();return false;}
     }
 
+    private int getSizeTree(){
+        return presenter.getSizeTree();
+    }
 
 }

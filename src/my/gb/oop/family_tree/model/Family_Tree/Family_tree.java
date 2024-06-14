@@ -49,9 +49,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         return sb;
     }
 
-     public int getSizeTree () {
-        return familyTree.size();
-     }
+
     //---------------------------------сортировки------------------------------------------------
     // возвращает отсортированное древо по возрастанию года рождения людей. Возвращает StringBuilder
     public Family_tree<T> sortByYearBirthday (){
@@ -289,6 +287,10 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
     public StringBuilder getSublins (int id) {
         return sublins(id);
     }
+    public int getSizeTree(){
+        return familyTree.size();
+    }
+
     /**
      * Добавляет данные о человеке в базу данных
      */
