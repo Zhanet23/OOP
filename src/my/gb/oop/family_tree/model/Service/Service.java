@@ -17,7 +17,7 @@ public class Service {
 
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
-        Family_tree<Human> ft = (Family_tree<Human>)wt.read(path);
+        ft = (Family_tree<Human>)wt.read(path);
         i = ft.getSizeTree();
         return ft;
     }
@@ -32,13 +32,11 @@ public class Service {
         return iT.ini();
     }
 
-
     public String getTreeInfo() {
         StringBuilder sb = new StringBuilder();
         for (Human h : ft) {sb.append(h).append("\n");}
         return sb.toString();
     }
-
 
     public void SaveToFile (Family_tree<Human> ft,String path) {
 

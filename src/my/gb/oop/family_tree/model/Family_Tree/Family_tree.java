@@ -11,6 +11,7 @@ import static java.util.Collections.sort;
 
 public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, Iterable<T>{
     private List<T> familyTree;
+
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
         this(new ArrayList<>());
@@ -23,12 +24,10 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         if (h == null) sb.append("не введен человек");
         else {
             if (!familyTree.contains(h)) {
-                //System.out.println("+++++++++++++++++++++++++++++");
-                //System.out.println(CreaterHuman.i);
                 CreaterHuman.i = familyTree.size()+1;
-                //System.out.println(CreaterHuman.i);
 
                 familyTree.add(h);
+
                 sb.append(h.getNames(h)).append(" - добавлен в древо");
                 // если у человека есть информация о родителях, то добавим и родителям информацию о ребенке
                 if (h.getMother() != null) {h.getMother().addChild(h);}
@@ -36,8 +35,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
                 //если вводится информация о старшем родственнике и известны дети у него
                 // то надо добавить детям информацию о родителе
                 if (h.getChildren() != null) {addParentToChildren(h);}
-
-
             }
             else {sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
                     append(" уже есть в базе, ").

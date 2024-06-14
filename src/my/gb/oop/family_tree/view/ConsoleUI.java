@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
+import static my.gb.oop.family_tree.model.Human.Gender.notDefined;
 
 public class ConsoleUI implements View{
     private Scanner scanner;
@@ -124,7 +125,7 @@ public class ConsoleUI implements View{
         //пока сделано кратко только, чтобы проверить работу, что человек добавляется в дерево
         //только фио и дата рождения
 
-         presenter.addObject(name,secondName,middleName,null,
+         presenter.addObject(name,secondName,middleName,notDefined,
                 LocalDate.of(dateB.getYear(),dateB.getMonthValue(),dateB.getDayOfMonth()),
                 null,null,null,null,null);
     }

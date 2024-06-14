@@ -154,9 +154,11 @@ public class Human extends CreaterHuman implements Serializable,  FamilyTreeItem
         StringBuilder sb = new StringBuilder();
         sb.append("----------------------------------------------------------").append("\n");
         sb.append(getFullName(this)).append(", ").append(getDates(this));
+
         String t = "";
         if (String.valueOf(getGender()).equals("Male")) t = "м";
-        else t = "ж";
+        if (String.valueOf(getGender()).equals("Female")) t = "ж";
+
         sb.append(", ").append(t).append("\n");
 
         if (spouse != null)  sb.append("супруг(а): ").append(getFullName(spouse).append(", ").append(getDates(spouse)));
@@ -195,6 +197,8 @@ public class Human extends CreaterHuman implements Serializable,  FamilyTreeItem
     //public void setChildren(List<Human> children) {
     //    this.children = children;
     //}
+
+
 
     //TODO сделать метод в fam tree this - delete
     public void setSpouse(Human spouse) {
