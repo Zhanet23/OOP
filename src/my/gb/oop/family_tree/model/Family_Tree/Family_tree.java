@@ -23,6 +23,11 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         if (h == null) sb.append("не введен человек");
         else {
             if (!familyTree.contains(h)) {
+                System.out.println("+++++++++++++++++++++++++++++");
+                System.out.println(CreaterHuman.i);
+                CreaterHuman.i = familyTree.size()+1;
+                System.out.println(CreaterHuman.i);
+
                 familyTree.add(h);
                 sb.append(h.getNames(h)).append(" - добавлен в древо");
                 // если у человека есть информация о родителях, то добавим и родителям информацию о ребенке
@@ -31,16 +36,22 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
                 //если вводится информация о старшем родственнике и известны дети у него
                 // то надо добавить детям информацию о родителе
                 if (h.getChildren() != null) {addParentToChildren(h);}
+
+
             }
             else {sb.append("идентичная информация о человеке с введенными данными ").append(h.getNames(h).
                     append(" уже есть в базе, ").
                     append("id - ").append(findByFIO(h.getName(),h.getMiddleName(),h.getSecondName()).getId())).
                     append(" Текущие данные НЕ добавлены в древо.");
+
                     CreaterHuman.i = CreaterHuman.i -1;}
             }
         return sb;
     }
 
+     public int getSizeTree () {
+        return familyTree.size();
+     }
     //---------------------------------сортировки------------------------------------------------
     // возвращает отсортированное древо по возрастанию года рождения людей. Возвращает StringBuilder
     public Family_tree<T> sortByYearBirthday (){

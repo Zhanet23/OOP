@@ -10,6 +10,7 @@ public class GetTreeInfo extends Command{
 
     @Override
     public void action() {
+
          getConsoleUI().getTreeInfo();
     }
 }
