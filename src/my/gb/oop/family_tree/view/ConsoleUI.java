@@ -90,7 +90,7 @@ public class ConsoleUI implements View{
     public Family_tree<Human> getNewTree() {
         ft =presenter.getNewTree();
         presenter = new Presenter(this, ft);
-        i = ft.getSizeTree();
+        i = 0;
         return ft;
 
     }
@@ -100,7 +100,7 @@ public class ConsoleUI implements View{
         presenter.SaveToFile(ft,path);
     }
     public Family_tree<Human> getTreeFromHear(){
-
+        i = 0;
         ft = presenter.getTreeFromHear();
         presenter = new Presenter(this, ft);
         return ft;
@@ -129,6 +129,7 @@ public class ConsoleUI implements View{
         //только фио и дата рождения
 
         //presenter = new Presenter(this, ft);
+        i = ft.getSizeTree();
         presenter.addObject(name,secondName,middleName,null,
                 LocalDate.of(dateB.getYear(),dateB.getMonthValue(),dateB.getDayOfMonth()),
                 null,null,null,null,null);

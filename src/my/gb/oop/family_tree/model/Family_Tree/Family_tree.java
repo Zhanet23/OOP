@@ -23,10 +23,10 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         if (h == null) sb.append("не введен человек");
         else {
             if (!familyTree.contains(h)) {
-                System.out.println("+++++++++++++++++++++++++++++");
-                System.out.println(CreaterHuman.i);
+                //System.out.println("+++++++++++++++++++++++++++++");
+                //System.out.println(CreaterHuman.i);
                 CreaterHuman.i = familyTree.size()+1;
-                System.out.println(CreaterHuman.i);
+                //System.out.println(CreaterHuman.i);
 
                 familyTree.add(h);
                 sb.append(h.getNames(h)).append(" - добавлен в древо");
