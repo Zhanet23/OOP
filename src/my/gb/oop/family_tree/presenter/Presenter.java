@@ -23,7 +23,9 @@ import java.util.List;
             service = new Service(ft);
         }
 
-
+        public Family_tree<Human> getCurrentTree(){
+            return service.getCurrentTree();
+        }
    public Family_tree<Human> getTreeFromFile(String path) {
        return service.getTreeFromFile(path);
         }

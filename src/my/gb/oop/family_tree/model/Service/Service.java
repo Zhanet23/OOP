@@ -32,8 +32,12 @@ public class Service {
         return iT.ini();
     }
 
+    public Family_tree<Human> getCurrentTree(){
+        return ft;
+    }
     public String getTreeInfo() {
         StringBuilder sb = new StringBuilder();
+        sb.append("имеющаяся информация в дереве:\n");
         for (Human h : ft) {sb.append(h).append("\n");}
         return sb.toString();
     }
