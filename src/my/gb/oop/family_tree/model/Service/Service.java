@@ -12,8 +12,8 @@ import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
 
 public class Service {
     Family_tree<Human> ft;
-    public Service(Family_tree<Human> ft) {this.ft = ft;}
 
+    public Service() {this.ft = new Family_tree<>();}
 
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
@@ -24,12 +24,14 @@ public class Service {
 
     public Family_tree<Human> getNewTree (){
         i = 0;
-        return new Family_tree<>();
+        ft = new Family_tree<>();
+        return ft;
     }
     public Family_tree<Human> getTreeFromHear(){
         InicialisationTree iT = new InicialisationTree();
         i = 0;
-        return iT.ini();
+        ft = iT.ini();
+        return ft;
     }
 
     public Family_tree<Human> getCurrentTree(){
@@ -42,7 +44,7 @@ public class Service {
         return sb.toString();
     }
 
-    public void SaveToFile (Family_tree<Human> ft,String path) {
+    public void SaveToFile (String path) {
 
         Writable wt = new FileHandler();
         wt.write(ft,path);

@@ -1,4 +1,6 @@
-package my.gb.oop.family_tree.model.Service;
+package my.gb.oop.family_tree.view;
+
+import my.gb.oop.family_tree.view.DateValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
