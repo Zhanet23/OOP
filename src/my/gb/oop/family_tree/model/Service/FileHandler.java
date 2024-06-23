@@ -18,9 +18,12 @@ public class FileHandler implements Writable {
 
     public Object read (String path) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(path)));
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
             Object t = ois.readObject();
-            if (t != null) System.out.println("считываемый из файла объект не пустой");
+
+            if (t != null) System.out.println("данные считались из файла");
+            //else System.out.println("система не видит файл");
             ois.close();
             return t;
         } catch (Exception e) {
@@ -28,6 +31,8 @@ public class FileHandler implements Writable {
             return null;
         }
     }
+
+
 }
 
 

@@ -10,7 +10,8 @@ public class MainMenu {
     public MainMenu(ConsoleUI consoleUI){
         commandlist = new ArrayList<>();
         commandlist.add(new GetTreeInfo(consoleUI));
-        commandlist.add(new FindObjectByID(consoleUI));
+        commandlist.add(new GetObjectByID(consoleUI));
+        commandlist.add(new GetObjectByIDwithSublins(consoleUI));
         commandlist.add(new SorttByName(consoleUI));
         commandlist.add(new SortByAge(consoleUI));
         commandlist.add(new SortByYearBirthday(consoleUI));

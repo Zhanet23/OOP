@@ -18,58 +18,59 @@ public class ConsoleUI implements View{
     scanner = new Scanner(System.in);
     presenter = new Presenter(this);
     flag = true; iniflag = false;
+    //path = "D:/My/GB/OOP/src/my/gb/oop/family_tree/fam.txt";
     path = "src/my/gb/oop/family_tree/fam.txt";
     menu = new MainMenu(this);
     }
-
+    //--------------------------------------------------------------------------------------
     @Override
     public void start() {
         ini();
-        while(flag){
-            printMenu();
-            action();
-        }
+        while(flag){ printMenu(); action();}
     }
-
+    @Override
+    public void printAnswer(String info) {System.out.println(info);}
+    @Override
     public void finish() {
-        System.out.println("Работа с деревом закончена"); flag = false;}
-
+        System.out.println("Работа с деревом закончена"); flag = false;
+    }
+    //--------------------получить / записать дерево------------------------------------------------------
     public void getTreeFromFile() { presenter.getTreeFromFile(path);}
     public void getTreeFromHear(){ presenter.getTreeFromHear();}
     public void getNewTree() { presenter.getNewTree();}
     public void saveToFile () {
-        presenter.SaveToFile(path);
+        presenter.saveToFile(path);
     }
-    public void getTreeInfo() { presenter.getTreeInfo();}
-
     //--------------------------------------------------------------------------------------------
-    @Override
-    public void printAnswer(String info) {System.out.println(info);}
+    //----------------------сортировки------------------------------------------------------------
     public void sortByAge() {presenter.sortByAge();}
-
     public void sortByName(){presenter.sortByName();}
     public void sortByYearBirthday(){presenter.sortByYearBirthday();}
-
+    //--------------------------------------------------------------------------------------------
+    //--------------------работа с деревом--------------------------------------------------------
+    public void getTreeInfo() { presenter.getTreeInfo();}
     public void addObject(){
-
         System.out.println("Введите имя: ");       String name = scanner.nextLine();
         System.out.println("Введите отчество: ");  String middleName = scanner.nextLine();
         System.out.println("Введите фамилию: ");   String secondName = scanner.nextLine();
-
         LocalDate dateB = checkInputDate("Введите дату рождения (гггг-мм-дд): ");
 
         //TODO здесь надо доделывать ввод и проерку др полей
         //пока сделано кратко только, чтобы проверить работу, что человек добавляется в дерево
         //только фио и дата рождения
-
          presenter.addObject(name,secondName,middleName,
                 LocalDate.of(dateB.getYear(),dateB.getMonthValue(),dateB.getDayOfMonth()),
                 null);
     }
 
-    public void findObjectByID(){
+    public void getObjectByID(){
         int id = checkInputID ();
-        if (id != -1) {presenter.findObjectByID(id);}
+        if (id != -1) {presenter.getObjectByID(id);}
+        else printError();
+    }
+    public void getObjectByID_withSublins(){
+        int id = checkInputID ();
+        if (id != -1) {presenter.getObjectByID_withSublins(id);}
         else printError();
     }
 
@@ -85,13 +86,13 @@ public class ConsoleUI implements View{
         else printError();
     }
 
-    public void getSublins(){
+    public void getSublinsByIDObject(){
         int id = checkInputID ();
-        if (id != -1) {presenter.getSublins(id);}
+        if (id != -1) {presenter.getSublinsByIDObject(id);}
         else printError();
     }
 
-
+    //--------------------------------------------------------------------------------------------
     private LocalDate checkInputDate(String description){
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");  //BASIC_ISO_DATE

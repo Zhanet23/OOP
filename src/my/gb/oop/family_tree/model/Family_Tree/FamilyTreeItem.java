@@ -1,6 +1,7 @@
 package my.gb.oop.family_tree.model.Family_Tree;
 
 import my.gb.oop.family_tree.model.Human.Gender;
+import my.gb.oop.family_tree.model.Human.Human;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +24,8 @@ public interface FamilyTreeItem<T> extends Comparable<T> {
     int getAge(T o);
     void addFather(T o);
     void addMother(T o);
-    StringBuilder getFIO(T o);
-    StringBuilder getDatesOfHuman(T o);
+    StringBuilder getNamesAndID(T o);
+    StringBuilder getDates(T o);
+
+
 }

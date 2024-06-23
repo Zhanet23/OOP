@@ -1,6 +1,6 @@
 package my.gb.oop.family_tree.model.Family_Tree;
 
-import my.gb.oop.family_tree.model.Human.Human;
+
 
 import java.util.Iterator;
 import java.util.List;

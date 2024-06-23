@@ -12,6 +12,6 @@ public class GetSublins extends Command {
 
     @Override
     public void action() {
-        getConsoleUI().getSublins();
+        getConsoleUI().getSublinsByIDObject();
     }
 }

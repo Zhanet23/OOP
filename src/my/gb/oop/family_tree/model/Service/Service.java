@@ -1,7 +1,8 @@
 package my.gb.oop.family_tree.model.Service;
 
+import my.gb.oop.family_tree.model.Family_Tree.FamilyTreeItem;
 import my.gb.oop.family_tree.model.Family_Tree.Family_tree;
-import my.gb.oop.family_tree.InicialisationTree;
+import my.gb.oop.family_tree.model.Family_Tree.InicialisationTree;
 import my.gb.oop.family_tree.model.Human.Gender;
 import my.gb.oop.family_tree.model.Human.Human;
 
@@ -10,21 +11,20 @@ import java.util.List;
 
 import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
 
-public class Service {
+public class Service implements WorkWithTreeInfo{
     Family_tree<Human> ft;
 
     public Service() {this.ft = new Family_tree<>();}
 
+    //------------------------получить / сохранить дерево----------------------------------------------------
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
-        ft = (Family_tree<Human>)wt.read(path);
-        i = ft.getSizeTree();
-        return ft;
-    }
-
-    public Family_tree<Human> getNewTree (){
-        i = 0;
         ft = new Family_tree<>();
+        ft = (Family_tree<Human>) wt.read(path);
+        //System.out.println(ft);
+        if (ft != null) {i = ft.getSizeTree();}
+        else {i = 0;}
+
         return ft;
     }
     public Family_tree<Human> getTreeFromHear(){
@@ -33,55 +33,62 @@ public class Service {
         ft = iT.ini();
         return ft;
     }
-
-    public Family_tree<Human> getCurrentTree(){
+    public Family_tree<Human> getNewTree (){
+        i = 0;
+        ft = new Family_tree<>();
         return ft;
     }
-    public String getTreeInfo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("имеющаяся информация в дереве:\n");
-        for (Human h : ft) {sb.append(h).append("\n");}
-        return sb.toString();
-    }
-
-    public void SaveToFile (String path) {
-
-        Writable wt = new FileHandler();
-        wt.write(ft,path);
-    }
-
     public int getSizeTree(){
         return ft.getSizeTree();
     }
-
-    public Family_tree<Human> sortByYearBirthday () {
-        return ft.sortByYearBirthday();
+    public void saveToFile (String path) {
+        Writable wt = new FileHandler();
+        wt.write(ft,path);
     }
-    public Family_tree<Human> sortByName(){
-        return ft.printSortName();
-    }
+    //-------------------------------сортировки----------------------------------------------------------------
 
+    public Family_tree<Human> sortByYearBirthday() {return ft.sortByYearBirthday();}
+    public Family_tree<Human> sortByName(){return ft.sortByName();}
     public Family_tree<Human> sortByAge (){
         return ft.sortByAge();
     }
-
-    public StringBuilder findObjectByID(int id) {
-        return ft.findOjectdByID(id);
+    //---------------------------------------------------------------------------------------------------------
+    @Override
+    public FamilyTreeItem<Human> getObjectByID (int id){
+        return ft.getObjectByID(id);
+    }
+    @Override
+    public StringBuilder getObjectByID_withSublins(int id) {return ft.getObjectByID_withSublins(id);}
+    //@Override
+    public List<Human> getTreeInfo(){
+        return ft.getTreeInfo();
+    }
+    @Override
+    public List<Human> getParentsByIDChild(int id){
+        return ft.getParentsByIDChild(id);
+    }
+    @Override
+    public List<Human> getChildrenByIDParent(int id){
+        return ft.getChildrenByIDParent(id);
+    }
+    @Override
+    public List<Human> getSublinsByIDObject (int id) {// найти братьев/сестер по коду объекта
+         return  ft.getSublinsByIDObject(id);
     }
 
-    public StringBuilder getParentsByIDChild (int id){ // поиск родителей по коду ребенка
-        return ft.findParentsByID(id);
-    }
-    public StringBuilder getChildrenByIDParent (int id){      // поиск детей по id родителя
-        return ft.findChildrenByIDParent(id);
-    }
 
-    public StringBuilder add (String name, String secondName, String middleName, Gender gender, LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother, Human father) {
+
+    public StringBuilder addObject (String name, String secondName, String middleName, Gender gender, LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother, Human father) {
         i = ft.getSizeTree();
         Human h = new Human(name,secondName,middleName,gender,dateB,dateD,spouse,children,mother,father);
-        return ft.add(h);}   // добавить объект в дерево
-
-    public StringBuilder getSublins (int id) {return ft.getSublins(id);} // найти братьев/сестер по коду объекта
-
-
+        return ft.addObject(h);
     }
+
+
+    //-----------------------------------------------------------------------------------------------
+    public StringBuilder getObjectNames(int id) {return ft.getNamesForPrintSublins(id);}
+
+
+
+
+}

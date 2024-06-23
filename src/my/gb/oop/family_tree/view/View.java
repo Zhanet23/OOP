@@ -6,6 +6,6 @@ import my.gb.oop.family_tree.model.Human.Human;
 
 public interface View {
     void printAnswer(String info);
-
     void start();
+    void finish();
 }
