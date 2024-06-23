@@ -1,10 +1,11 @@
 package my.gb.oop.family_tree.view.commands;
 
-import my.gb.oop.family_tree.view.ConsoleUI;
+//import my.gb.oop.family_tree.view.ConsoleUI;
+import my.gb.oop.family_tree.view.View;
 
 public class SorttByName extends Command{
-    public SorttByName(ConsoleUI consoleUI) {
-        super(consoleUI);
+    public SorttByName(View viewer) {
+        super(viewer);
         description = "отсортировать по имени";
     }
 

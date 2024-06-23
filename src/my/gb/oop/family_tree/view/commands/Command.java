@@ -1,13 +1,15 @@
 package my.gb.oop.family_tree.view.commands;
 
 
-import my.gb.oop.family_tree.view.ConsoleUI;
+//import my.gb.oop.family_tree.view.ConsoleUI;
+import my.gb.oop.family_tree.view.View;
+
 
 public abstract class Command {
     protected String description;
-    private ConsoleUI consoleUI;
+    private View viewer;
 
-    public Command(ConsoleUI consoleUI) {this.consoleUI = consoleUI;}
+    public Command(View viewer) {this.viewer = viewer;}
 
      public String getDescription(){
         return description;
@@ -16,7 +18,7 @@ public abstract class Command {
      public abstract void action();
 
     //дефолтный модификатор - видимость только наследникам этого класса в пакете commands
-     ConsoleUI getConsoleUI() {return consoleUI;}
+     View getConsoleUI() {return viewer;}
 
 
 

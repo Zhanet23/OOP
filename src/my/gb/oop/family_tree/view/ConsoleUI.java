@@ -7,18 +7,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
-public class ConsoleUI implements View {
-    private Scanner scanner;
-    private Presenter presenter;
-    private boolean flag; private boolean iniflag;
-    private MainMenu menu;
-    String path;
+public class ConsoleUI extends View {
+//    private Scanner scanner;
+//    private Presenter presenter;
+//    private boolean flag; private boolean iniflag;
+//    private MainMenu menu;
+//    String path;
 
    public ConsoleUI() {
     scanner = new Scanner(System.in);
     presenter = new Presenter(this);
     flag = true; iniflag = false;
-    //path = "D:/My/GB/OOP/src/my/gb/oop/family_tree/fam.txt";
     path = "src/my/gb/oop/family_tree/fam.txt";
     menu = new MainMenu(this);
 
@@ -36,20 +35,29 @@ public class ConsoleUI implements View {
         System.out.println("Работа с деревом закончена"); flag = false;
     }
     //--------------------получить / записать дерево------------------------------------------------------
+    @Override
     public void getTreeFromFile() { presenter.getTreeFromFile(path);}
+    @Override
     public void getTreeFromHear(){ presenter.getTreeFromHear();}
+    @Override
     public void getNewTree() { presenter.getNewTree();}
+    @Override
     public void saveToFile () {
         presenter.saveToFile(path);
     }
     //--------------------------------------------------------------------------------------------
     //----------------------сортировки------------------------------------------------------------
+    @Override
     public void sortByAge() {presenter.sortByAge();}
+    @Override
     public void sortByName(){presenter.sortByName();}
+    @Override
     public void sortByYearBirthday(){presenter.sortByYearBirthday();}
     //--------------------------------------------------------------------------------------------
     //--------------------работа с деревом--------------------------------------------------------
+    @Override
     public void getTreeInfo() { presenter.getTreeInfo();}
+    @Override
     public void addObject(){
         System.out.println("Введите имя: ");       String name = scanner.nextLine();
         System.out.println("Введите отчество: ");  String middleName = scanner.nextLine();
@@ -63,30 +71,35 @@ public class ConsoleUI implements View {
                 LocalDate.of(dateB.getYear(),dateB.getMonthValue(),dateB.getDayOfMonth()),
                 null);
     }
-
+    @Override
     public void getObjectByID(){
         int id = checkInputID ();
         if (id != -1) {presenter.getObjectByID(id);}
         else printError();
     }
+//    @Override
+//    public void getObjectByNames() {
+//
+//    }
+    @Override
     public void getObjectByID_withSublins(){
         int id = checkInputID ();
         if (id != -1) {presenter.getObjectByID_withSublins(id);}
         else printError();
     }
-
+    @Override
     public void getParentsByIDChild(){
         int id = checkInputID ();
         if (id != -1) {presenter.getParentsByIDChild(id);}
         else printError();
     }
-
+    @Override
     public void getChildrenByIDParent(){
         int id = checkInputID ();
         if (id != -1) {presenter.getChildrenByIDParent(id);}
         else printError();
     }
-
+    @Override
     public void getSublinsByIDObject(){
         int id = checkInputID ();
         if (id != -1) {presenter.getSublinsByIDObject(id);}
@@ -136,33 +149,33 @@ public class ConsoleUI implements View {
         else return -1;
     }
 
-    private void printMenu() {System.out.println(menu.menu());}
+    //private void printMenu() {System.out.println(menu.menu());}
 
-    private void action(){
-        String line = scanner.nextLine();
+//    private void action(){
+//        String line = scanner.nextLine();
+//
+//        if (checkInfoForInt(line)) {
+//            int num = Integer.parseInt(line);
+//            if (checkCommand(num)) menu.action(num);
+//        }
+//    }
 
-        if (checkInfoForInt(line)) {
-            int num = Integer.parseInt(line);
-            if (checkCommand(num)) menu.action(num);
-        }
-    }
+//    private boolean checkInfoForInt(String info){
+//        if (info.matches("[0-9]+")) {
+//            return true;
+//        }
+//        else {printError(); return false;}
+//    }
 
-    private boolean checkInfoForInt(String info){
-        if (info.matches("[0-9]+")) {
-            return true;
-        }
-        else {printError(); return false;}
-    }
+//    private void printError() {System.out.println("Введено не верное значение");}
+//
+//    private boolean checkCommand (int c){
+//        if (c <= menu.getSize()){
+//            return true;
+//        } else {printError();return false;}
+//    }
 
-    private void printError() {System.out.println("Введено не верное значение");}
-
-    private boolean checkCommand (int c){
-        if (c <= menu.getSize()){
-            return true;
-        } else {printError();return false;}
-    }
-
-    private int getSizeTree(){
+    public int getSizeTree(){
         return presenter.getSizeTree();
     }
 

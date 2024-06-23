@@ -1,11 +1,12 @@
 package my.gb.oop.family_tree.view.commands;
 
-import my.gb.oop.family_tree.view.ConsoleUI;
+//import my.gb.oop.family_tree.view.ConsoleUI;
+import my.gb.oop.family_tree.view.View;
 
 public class GetTreeFromHear extends Command{
 
-    public GetTreeFromHear(ConsoleUI consoleUI) {
-          super(consoleUI);
+    public GetTreeFromHear(View viewer) {
+          super(viewer);
           description = "извлечь информацию из этой программы";
     }
 

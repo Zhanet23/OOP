@@ -1,11 +1,12 @@
 package my.gb.oop.family_tree.view.commands;
 
-import my.gb.oop.family_tree.view.ConsoleUI;
+//import my.gb.oop.family_tree.view.ConsoleUI;
+import my.gb.oop.family_tree.view.View;
 
 public class GetParentsByIDChild extends Command {
 
-    public GetParentsByIDChild(ConsoleUI consoleUI) {
-        super(consoleUI);
+    public GetParentsByIDChild(View viewer) {
+        super(viewer);
         description = "дать информацию о родителях объекта по его ID";
     }
 

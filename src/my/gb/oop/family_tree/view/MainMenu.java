@@ -7,25 +7,26 @@ import java.util.List;
 
 public class MainMenu {
     private List<Command> commandlist;
-    public MainMenu(ConsoleUI consoleUI){
+    public MainMenu(View view){
 
         commandlist = new ArrayList<>();
 
-        commandlist.add(new GetTreeInfo(consoleUI));
-        commandlist.add(new GetObjectByID(consoleUI));
-        commandlist.add(new GetObjectByIDwithSublins(consoleUI));
-        commandlist.add(new SorttByName(consoleUI));
-        commandlist.add(new SortByAge(consoleUI));
-        commandlist.add(new SortByYearBirthday(consoleUI));
-        commandlist.add(new GetParentsByIDChild(consoleUI));
-        commandlist.add(new GetChildrenByIDParent(consoleUI));
-        commandlist.add(new GetSublins(consoleUI));
-        commandlist.add(new AddObject(consoleUI));
-        commandlist.add(new GetTreeFromHear(consoleUI));
-        commandlist.add(new ExtractFromFile(consoleUI));
-        commandlist.add(new SaveToFile(consoleUI));
-        commandlist.add(new CreateNewTree(consoleUI));
-        commandlist.add(new Finish(consoleUI));
+        commandlist.add(new GetTreeInfo(view));
+        commandlist.add(new GetObjectByID(view));
+        commandlist.add(new GetObjectByNames(view));
+        commandlist.add(new GetObjectByIDwithSublins(view));
+        commandlist.add(new SorttByName(view));
+        commandlist.add(new SortByAge(view));
+        commandlist.add(new SortByYearBirthday(view));
+        commandlist.add(new GetParentsByIDChild(view));
+        commandlist.add(new GetChildrenByIDParent(view));
+        commandlist.add(new GetSublins(view));
+        commandlist.add(new AddObject(view));
+        commandlist.add(new GetTreeFromHear(view));
+        commandlist.add(new ExtractFromFile(view));
+        commandlist.add(new SaveToFile(view));
+        commandlist.add(new CreateNewTree(view));
+        commandlist.add(new Finish(view));
     }
 
     public String menu(){
