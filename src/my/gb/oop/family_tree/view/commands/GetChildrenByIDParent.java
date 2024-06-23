@@ -7,7 +7,6 @@ public class GetChildrenByIDParent extends Command {
     public GetChildrenByIDParent(ConsoleUI consoleUI) {
         super(consoleUI);
         description = "дать информацию о детях объекта по его ID";
-
     }
 
     @Override

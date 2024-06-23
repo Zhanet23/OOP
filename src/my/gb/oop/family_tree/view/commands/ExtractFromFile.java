@@ -10,7 +10,7 @@ public class ExtractFromFile extends Command{
     }
 
     @Override
-    public void action() {
-        getConsoleUI().getTreeFromFile();
+    public void action() {getConsoleUI().getTreeFromFile();}
+
     }
-}
+

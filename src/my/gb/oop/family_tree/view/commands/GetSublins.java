@@ -7,7 +7,6 @@ public class GetSublins extends Command {
     public GetSublins(ConsoleUI consoleUI) {
         super(consoleUI);
         description = "дать информацию о братьях/сестрах объекта по его ID";
-
     }
 
     @Override

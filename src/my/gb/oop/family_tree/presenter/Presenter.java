@@ -6,41 +6,45 @@ import my.gb.oop.family_tree.model.Service.WorkWithTreeInfo;
 
 import java.time.LocalDate;
 
-    public class Presenter {
-    private View v;  private Service service;
+    public class Presenter extends Presenter_sorting{
+        public Presenter(View v) {
+            super(v);
+        }
+        //private View v;  private Service service;
 
-    public Presenter(View v) {
-        this.v = v;
-        service = new Service();
-    }
+//    public Presenter(View v) {
+//        this.v = v;
+//        service = new Service();
+//    }
     //-------------------------------------------------------------------------------------------------
-    public void getTreeFromFile(String path) { service.getTreeFromFile(path); }
-    public void getTreeFromHear(){ service.getTreeFromHear();}
-    public void getNewTree(){
-        service.getNewTree();
-   }
-    public int getSizeTree(){
-        return service.getSizeTree();
-   }
-    public void saveToFile (String path) {
-         service.saveToFile(path);
-    }
+//    public void getTreeFromFile(String path) { service.getTreeFromFile(path); }
+//    public void getTreeFromHear(){ service.getTreeFromHear();}
+//    public void getNewTree(){
+//        service.getNewTree();
+//   }
+
+//    public void saveToFile (String path) {
+//         service.saveToFile(path);
+//    }
 
     //----------------------------------------------------------------------------------------------------
-    public void sortByYearBirthday (){
-        String info = service.sortByYearBirthday().toString();
-        v.printAnswer(info);
-    }
-    public void sortByName (){
-        String info = service.sortByName().toString();
-        v.printAnswer(info);
-    }
-    public void sortByAge (){
-        String info = service.sortByAge().toString();
-        v.printAnswer(info);
-    }
+//    public void sortByYearBirthday (){
+//        String info = service.sortByYearBirthday().toString();
+//        v.printAnswer(info);
+//    }
+//    public void sortByName (){
+//        String info = service.sortByName().toString();
+//        v.printAnswer(info);
+//    }
+//    public void sortByAge (){
+//        String info = service.sortByAge().toString();
+//        v.printAnswer(info);
+//    }
     //-----------------------------------------------------------------------------------------------------
     //----------------------------функционал работы с элементами дерева------------------------------------
+    public int getSizeTree(){
+        return service.getSizeTree();
+    }
     public void getObjectByID(int id) {
         String info = service.getObjectByID(id).toString();
         v.printAnswer(info);

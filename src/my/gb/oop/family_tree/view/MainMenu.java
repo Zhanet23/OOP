@@ -8,7 +8,9 @@ import java.util.List;
 public class MainMenu {
     private List<Command> commandlist;
     public MainMenu(ConsoleUI consoleUI){
+
         commandlist = new ArrayList<>();
+
         commandlist.add(new GetTreeInfo(consoleUI));
         commandlist.add(new GetObjectByID(consoleUI));
         commandlist.add(new GetObjectByIDwithSublins(consoleUI));

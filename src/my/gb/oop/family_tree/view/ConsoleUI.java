@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
-public class ConsoleUI implements View{
+public class ConsoleUI implements View {
     private Scanner scanner;
     private Presenter presenter;
     private boolean flag; private boolean iniflag;
@@ -21,6 +21,7 @@ public class ConsoleUI implements View{
     //path = "D:/My/GB/OOP/src/my/gb/oop/family_tree/fam.txt";
     path = "src/my/gb/oop/family_tree/fam.txt";
     menu = new MainMenu(this);
+
     }
     //--------------------------------------------------------------------------------------
     @Override

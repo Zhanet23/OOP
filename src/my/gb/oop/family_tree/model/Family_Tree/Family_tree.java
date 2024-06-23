@@ -133,9 +133,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         return sublins;
     }
 
-    public StringBuilder addObject(T human) {
-        return addHuman(human);
-    }
+    public StringBuilder addObject(T human) {return addObj(human);}
     //-----------------------------------------------------------------------------------------------
     @Override
     public String toString() {
@@ -170,7 +168,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         return sb.toString();
     }
 
-    private StringBuilder addHuman(T h) {
+    private StringBuilder addObj(T h) {
         StringBuilder sb = new StringBuilder();
         if (h == null) sb.append("не введен человек");
         else {
@@ -204,7 +202,7 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         return sb;
     }
 
-    // используется в методе addHuman
+    // используется в методе addObj
     private void addParentToChildren(T h) {
         //добавляем отца
         if (String.valueOf(h.getGender()).equals("Male")) {
