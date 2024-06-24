@@ -59,7 +59,7 @@ public class Human extends CreaterHuman implements Serializable, FamilyTreeItem<
     public StringBuilder getDates (Human h) {
         LocalDate now =LocalDate.now(); StringBuilder sb = new StringBuilder();
         int age = age(h);
-        if (h.getDateB() == null) {
+        if (h.getDateD() == null) {
             sb.append("Дата рожд.: ").append(h.getDateB()).append(", Возраст: ").append(age);
         }
         else {

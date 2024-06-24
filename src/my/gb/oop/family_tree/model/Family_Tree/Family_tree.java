@@ -2,25 +2,28 @@ package my.gb.oop.family_tree.model.Family_Tree;
 
 import my.gb.oop.family_tree.model.Human.CreaterHuman;
 import my.gb.oop.family_tree.model.Service.WorkWithTreeInfo;
-
+import my.gb.oop.family_tree.model.Human.Human;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, Iterable<T>, WorkWithTreeInfo {
+//public class Family_tree <T extends FamilyTreeItem<T>> extends Family_tree_ini<T>
+// implements WorkWithTreeInfo, Serializable, Iterable<T> {
+
+public class Family_tree <T extends FamilyTreeItem<T>> implements Serializable, Iterable<T>, WorkWithTreeInfo {
     private List<T> familyTree;
 
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
         this(new ArrayList<>());
+        //super();
     }
-
     public Family_tree(List<T> familyTree) {
         this.familyTree = familyTree;
+        //super(familyTree);
     }
 
-    //---------------------------------сортировки------------------------------------------------
-
+ //---------------------------------сортировки------------------------------------------------
     public Family_tree<T> sortByYearBirthday() {
         Family_tree<T> ft_sort = new Family_tree<>();
         Comparator<T> cc = new Comparator<T>() {
@@ -56,7 +59,6 @@ public class Family_tree<T extends FamilyTreeItem<T>> implements Serializable, I
         familyTree.stream().sorted(cc).forEach(ft_sort::addObject);
         return ft_sort;
     }
-
     //--------------------------------------------------------------------------------------
     public int getSizeTree() {
         return familyTree.size();

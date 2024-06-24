@@ -11,7 +11,7 @@ public class Service_ini {
     public Service_ini() {this.ft = new Family_tree<>();}
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
-        //ft = new Family_tree<>();
+        ft = new Family_tree<>();
         ft = (Family_tree<Human>) wt.read(path);
         if (ft != null) {i = ft.getSizeTree();}
         else {i = 0; ft = new Family_tree<>();}
