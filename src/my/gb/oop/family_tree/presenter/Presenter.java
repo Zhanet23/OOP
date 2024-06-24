@@ -75,8 +75,8 @@ import java.time.LocalDate;
         info = service.getSublinsByIDObject(id).toString();
         v.printAnswer(info);
     }
-
     public void addObject(String name, String secondName, String middleName,LocalDate dateB, LocalDate dateD){
         service.addObject(name, secondName,middleName, null,dateB, dateD, null, null,null, null);
     }
+
 }

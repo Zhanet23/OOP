@@ -23,7 +23,7 @@ public class FileHandler implements Writable {
             Object t = ois.readObject();
 
             if (t != null) System.out.println("данные считались из файла");
-            //else System.out.println("система не видит файл");
+            else System.out.println("система не видит файл");
             ois.close();
             return t;
         } catch (Exception e) {

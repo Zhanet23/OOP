@@ -10,4 +10,7 @@ public class Presenter_ini {
         this.v = v;
         service = new Service();
     }
+
+
+
 }

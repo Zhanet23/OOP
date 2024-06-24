@@ -55,7 +55,7 @@ public abstract class View {
     }
     protected void printError() {System.out.println("Введено не верное значение");}
 
-    private boolean checkCommand (int c){
+    protected boolean checkCommand (int c){
         if (c <= menu.getSize()){
             return true;
         } else {printError();return false;}

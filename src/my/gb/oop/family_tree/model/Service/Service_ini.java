@@ -7,7 +7,8 @@ import my.gb.oop.family_tree.model.Human.Human;
 import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
 
 public class Service_ini {
-    protected Family_tree<Human> ft;
+
+protected Family_tree<Human> ft;
     public Service_ini() {this.ft = new Family_tree<>();}
     public Family_tree<Human> getTreeFromFile(String path) {
         Writable wt = new FileHandler();
@@ -34,5 +35,4 @@ public class Service_ini {
         Writable wt = new FileHandler();
         wt.write(ft,path);
     }
-
 }
