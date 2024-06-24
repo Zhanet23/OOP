@@ -55,6 +55,8 @@ public class ConsoleUI extends View {
     public void sortByYearBirthday(){presenter.sortByYearBirthday();}
     //--------------------------------------------------------------------------------------------
     //--------------------работа с деревом--------------------------------------------------------
+
+
     @Override
     public void getTreeInfo() { presenter.getTreeInfo();}
     @Override
@@ -77,10 +79,7 @@ public class ConsoleUI extends View {
         if (id != -1) {presenter.getObjectByID(id);}
         else printError();
     }
-//    @Override
-//    public void getObjectByNames() {
-//
-//    }
+
     @Override
     public void getObjectByID_withSublins(){
         int id = checkInputID ();

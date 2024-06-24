@@ -6,7 +6,8 @@ import my.gb.oop.family_tree.model.Service.WorkWithTreeInfo;
 
 import java.time.LocalDate;
 
-    public class Presenter extends Presenter_sorting{
+    public class Presenter extends Presenter_funcTree{
+
         public Presenter(View v) {
             super(v);
         }
@@ -42,41 +43,49 @@ import java.time.LocalDate;
 //    }
     //-----------------------------------------------------------------------------------------------------
     //----------------------------функционал работы с элементами дерева------------------------------------
-    public int getSizeTree(){
-        return service.getSizeTree();
-    }
-    public void getObjectByID(int id) {
-        String info = service.getObjectByID(id).toString();
-        v.printAnswer(info);
-    }
-        public void getObjectByID_withSublins(int id) {
-            String info = service.getObjectByID_withSublins(id).toString();
-            v.printAnswer(info);
+//    public int getSizeTree(){
+//        return service.getSizeTree();
+//    }
+//    public void getObjectByID(int id) {
+//        String info = service.getObjectByID(id).toString();
+//        v.printAnswer(info);
+//    }
+//        public void getObjectByID_withSublins(int id) {
+//            String info = service.getObjectByID_withSublins(id).toString();
+//            v.printAnswer(info);
+//        }
+//
+//    public void getTreeInfo (){
+//         String info = service.getTreeInfo().toString();
+//         v.printAnswer(info);
+//        }
+//
+//    public void getParentsByIDChild(int id) {
+//        String info = service.getParentsByIDChild(id).toString();
+//        v.printAnswer(info);
+//    }
+//
+//    public void getChildrenByIDParent(int id) {
+//        String info = service.getChildrenByIDParent(id).toString();
+//        v.printAnswer(info);
+//    }
+//
+//    public void getSublinsByIDObject(int id) {
+//        String info = service.getObjectNames(id).toString();
+//        v.printAnswer(info);
+//        info = service.getSublinsByIDObject(id).toString();
+//        v.printAnswer(info);
+//    }
+//    public void addObject(String name, String secondName, String middleName,LocalDate dateB, LocalDate dateD){
+//        service.addObject(name, secondName,middleName, null,dateB, dateD, null, null,null, null);
+//    }
+    public void getObjectByNames(String name,String middleName,String secondName) {
+        System.out.println("Presenter_ext calls the method getObjectByNames in service");
+        String info;
+        if (service.getObjectByNames(name, middleName,secondName) != null) {
+            info = service.getObjectByNames(name, middleName, secondName).toString();
         }
-
-    public void getTreeInfo (){
-         String info = service.getTreeInfo().toString();
-         v.printAnswer(info);
-        }
-
-    public void getParentsByIDChild(int id) {
-        String info = service.getParentsByIDChild(id).toString();
+        else info = "Такого объекта нет в базе";
         v.printAnswer(info);
     }
-
-    public void getChildrenByIDParent(int id) {
-        String info = service.getChildrenByIDParent(id).toString();
-        v.printAnswer(info);
-    }
-
-    public void getSublinsByIDObject(int id) {
-        String info = service.getObjectNames(id).toString();
-        v.printAnswer(info);
-        info = service.getSublinsByIDObject(id).toString();
-        v.printAnswer(info);
-    }
-    public void addObject(String name, String secondName, String middleName,LocalDate dateB, LocalDate dateD){
-        service.addObject(name, secondName,middleName, null,dateB, dateD, null, null,null, null);
-    }
-
 }
