@@ -10,7 +10,7 @@ public class FileHandler implements Writable {
             ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(
                     new FileOutputStream(path)));
             out.writeObject(s); out.flush(); out.close();
-            //System.out.println(s);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

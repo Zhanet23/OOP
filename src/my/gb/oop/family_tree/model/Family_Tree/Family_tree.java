@@ -1,50 +1,42 @@
 package my.gb.oop.family_tree.model.Family_Tree;
 
 import my.gb.oop.family_tree.model.Human.CreaterHuman;
+import my.gb.oop.family_tree.model.Human.Gender;
+import my.gb.oop.family_tree.model.Human.Human;
 import my.gb.oop.family_tree.model.Service.WorkWithTreeInfo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
 public class Family_tree <T extends FamilyTreeItem<T>> implements Serializable, Iterable<T>, WorkWithTreeInfo {
-
     private List<T> familyTree;
 
     //-----------------конструкторы----------------------------------------------------------
     public Family_tree() {
         this(new ArrayList<>());
-        //super();
     }
     public Family_tree(List<T> familyTree) {
         this.familyTree = familyTree;
-        //super(familyTree);
     }
-
     //---------------------------------сортировки------------------------------------------------
     public Family_tree<T> sortByYearBirthday() {
         Family_tree<T> ft_sort = new Family_tree<>();
         Comparator<T> cc = new Comparator<T>() {
             @Override
-            public int compare(T o1, T o2) {
-                return o1.getDateB().getYear() - o2.getDateB().getYear();
-            }
+            public int compare(T o1, T o2) {return o1.getDateB().getYear() - o2.getDateB().getYear();}
         };
         familyTree.stream().sorted(cc).forEach(ft_sort::addObject);
         return ft_sort;
     }
-
     public Family_tree<T> sortByName() {
         Family_tree<T> ft_sort = new Family_tree<>();
         Comparator<T> cc = new Comparator<T>() {
             @Override
-            public int compare(T o1, T o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
+            public int compare(T o1, T o2) {return o1.getName().compareTo(o2.getName());}
         };
         familyTree.stream().sorted(cc).forEach(ft_sort::addObject);
         return ft_sort;
     }
-
     public Family_tree<T> sortByAge() {
         Family_tree<T> ft_sort = new Family_tree<>();
         Comparator<T> cc = new Comparator<T>() {
@@ -133,6 +125,7 @@ public class Family_tree <T extends FamilyTreeItem<T>> implements Serializable, 
     }
 
     public StringBuilder addObject(T human) {return addObj(human);}
+
     //-----------------------------------------------------------------------------------------------
     @Override
     public String toString() {
@@ -152,24 +145,30 @@ public class Family_tree <T extends FamilyTreeItem<T>> implements Serializable, 
     public T getObjectByNames (String name, String middleName, String secondName){
         return getObjectByObjectNames(name, middleName, secondName);
     }
-    //------------------------------------------------------------------------------------------
-    private StringBuilder getObjectNames(int id) {
-        StringBuilder sb = new StringBuilder();
-        T object = getObjectByID(id);
-        sb.append(object.getNames(object));
-        return sb;
+    public void setMotherToObject(int object_id,int mother_id){
+        T object = getObjectByID(object_id);
+        T mother = getObjectByID(mother_id);
+        object.addMother(mother);
+        object.getMother().addChild(object);
     }
-
-    private String printFullInfAboutTree() {
-        StringBuilder sb = new StringBuilder();
-        for (var i : familyTree) {
-            sb.append(i);
-            sb.append("\n");
+    public void setFatherToObject(int object_id,int father_id){
+        T object = getObjectByID(object_id);
+        T father = getObjectByID(father_id);
+        object.addFather(father);
+        object.getFather().addChild(object);
+    }
+    public void setSpouse(int wife_ID, int husbant_ID){
+        T wife = getObjectByID(wife_ID);
+        T husbant = getObjectByID(husbant_ID);
+        if (wife != husbant && !wife.getChildren().contains(husbant)
+            && !husbant.getChildren().contains(wife)) {
+            wife.setSpouse(husbant); husbant.setSpouse(wife);
         }
-        return sb.toString();
     }
+    //------------------------------------------------------------------------------------------
 
-    private StringBuilder addObj(T h) {
+    private StringBuilder addObj(T h){
+
         StringBuilder sb = new StringBuilder();
         if (h == null) sb.append("не введен человек");
         else {
@@ -234,6 +233,21 @@ public class Family_tree <T extends FamilyTreeItem<T>> implements Serializable, 
         if (o.getMother() != null) parents.add(o.getMother());
         if (o.getFather() != null) parents.add(o.getFather());
         return parents;
+    }
+    private StringBuilder getObjectNames(int id) {
+        StringBuilder sb = new StringBuilder();
+        T object = getObjectByID(id);
+        sb.append(object.getNames(object));
+        return sb;
+    }
+
+    private String printFullInfAboutTree() {
+        StringBuilder sb = new StringBuilder();
+        for (var i : familyTree) {
+            sb.append(i);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 

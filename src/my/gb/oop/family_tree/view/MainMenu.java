@@ -22,6 +22,9 @@ public class MainMenu {
         commandlist.add(new GetChildrenByIDParent(view));
         commandlist.add(new GetSublins(view));
         commandlist.add(new AddObject(view));
+        commandlist.add(new SetMotherToObject(view));
+        commandlist.add(new SetFatherToObject(view));
+        commandlist.add(new SetSpouse(view));
         commandlist.add(new GetTreeFromHear(view));
         commandlist.add(new ExtractFromFile(view));
         commandlist.add(new SaveToFile(view));

@@ -26,6 +26,6 @@ public interface FamilyTreeItem<T> extends Comparable<T> {
     void addMother(T o);
     StringBuilder getNamesAndID(T o);
     StringBuilder getDates(T o);
-
+    void setSpouse(T spouse);
 
 }

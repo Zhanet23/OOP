@@ -35,8 +35,9 @@ public abstract class View {
     public void getSublinsByIDObject() {};
     public void addObject() {};
     public  void getObjectByNames() {};
-
-
+    public void  setMotherToObject() {};
+    public void  setFatherToObject() {};
+    public void  setSpouse() {};
 
     protected void printMenu() {System.out.println(menu.menu());}
     protected void action(){

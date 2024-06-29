@@ -10,46 +10,9 @@ import java.util.List;
 import static my.gb.oop.family_tree.model.Human.CreaterHuman.i;
 
 public class Service_funcTree extends Service_sorting implements WorkWithTreeInfo{
-    //Family_tree<Human> ft;
 
-    //public Service() {this.ft = new Family_tree<>();}
     public Service_funcTree() {super();}
-//
-//    //------------------------получить / сохранить дерево----------------------------------------------------
-//    public Family_tree<Human> getTreeFromFile(String path) {
-//        Writable wt = new FileHandler();
-//        //ft = new Family_tree<>();
-//        ft = (Family_tree<Human>) wt.read(path);
-//        if (ft != null) {i = ft.getSizeTree();}
-//        else {i = 0; ft = new Family_tree<>();}
-//
-//        return ft;
-//    }
-//    public Family_tree<Human> getTreeFromHear(){
-//        InicialisationTree iT = new InicialisationTree();
-//        i = 0;
-//        ft = iT.ini();
-//        return ft;
-//    }
-//    public Family_tree<Human> getNewTree (){
-//        i = 0;
-//        ft = new Family_tree<>();
-//        return ft;
-//    }
-//    public int getSizeTree(){
-//        return ft.getSizeTree();
-//    }
-//    public void saveToFile (String path) {
-//        Writable wt = new FileHandler();
-//        wt.write(ft,path);
-//    }
-    //-------------------------------сортировки----------------------------------------------------------------
 
-//    public Family_tree<Human> sortByYearBirthday() {return ft.sortByYearBirthday();}
-//    public Family_tree<Human> sortByName(){return ft.sortByName();}
-//    public Family_tree<Human> sortByAge (){
-//        return ft.sortByAge();
-//    }
     public int getSizeTree(){
         return ft.getSizeTree();
     }
@@ -78,16 +41,27 @@ public class Service_funcTree extends Service_sorting implements WorkWithTreeInf
     }
     //-----------------------------------------------------------------------------------------------
 
-    public StringBuilder addObject (String name, String secondName, String middleName, Gender gender, LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, Human mother, Human father) {
+    public String addObject (String name, String secondName, String middleName, Gender gender, LocalDate dateB, LocalDate dateD, Human spouse, List<Human> children, int mother_ID, int father_ID) {
         i = ft.getSizeTree();
-        Human h = new Human(name,secondName,middleName,gender,dateB,dateD,spouse,children,mother,father);
-        return ft.addObject(h);
+
+        Human h = new Human(name,secondName,middleName,gender,dateB,dateD,spouse,children, null,null);
+        ft.addObject(h);
+        if (mother_ID!= -1 && mother_ID != 0) { ft.setMotherToObject(h.getId(),mother_ID);}
+        if (father_ID!= -1 && father_ID != 0) { ft.setFatherToObject(h.getId(),father_ID);}
+        return ft.toString();
     }
 
     //-----------------------------------------------------------------------------------------------
     public StringBuilder getObjectNames(int id) {return ft.getNamesForPrintSublins(id);}
+    public void setMotherToObject(int child_ID, int mother_ID) {
+        ft.setMotherToObject(child_ID,mother_ID);
+    }
+    public void setFatherToObject(int child_ID, int father_ID) {
+        ft.setFatherToObject(child_ID,father_ID);
+    }
 
-
-
+    public void setSpouse(int w, int h){
+        ft.setSpouse(w,h);
+    }
 
 }

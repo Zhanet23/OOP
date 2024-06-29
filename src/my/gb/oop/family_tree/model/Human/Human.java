@@ -86,9 +86,7 @@ public class Human extends CreaterHuman implements Serializable, FamilyTreeItem<
     public void addFather (Human h){
         if (this.father != h) {this.father = h;}
     }
-    public void setSpouse(Human spouse) {
-        this.spouse = spouse;
-    }
+
     //--------------------------- переопределенные -----------------------------------------------------------
     @Override
     public String toString() {
@@ -121,7 +119,10 @@ public class Human extends CreaterHuman implements Serializable, FamilyTreeItem<
     public Human getFather() {return father;}
     public List<Human> getChildren() {return children;}
     public Gender getGender() {return gender;}
-
+    //---------------------------------setters---------------------------------------------------------------
+    public void setSpouse(Human spouse) {
+        this.spouse = spouse;
+    }
     //---------------------private-----------------------------------------------------------------------------
     private int age (Human h) {
         int age; LocalDate now =LocalDate.now();
@@ -139,35 +140,40 @@ public class Human extends CreaterHuman implements Serializable, FamilyTreeItem<
     }
 
     private String getFullInfAboutObject () {   //вызывается из toString
+
         StringBuilder sb = new StringBuilder();
-        sb.append("----------------------------------------------------------").append("\n");
-        sb.append(getNamesAndID(this)).append(", ").append(getDates(this));
 
-        String t = "";
-        if (String.valueOf(getGender()).equals("Male")) t = "м";
-        if (String.valueOf(getGender()).equals("Female")) t = "ж";
+            sb.append("----------------------------------------------------------").append("\n");
+            sb.append(getNamesAndID(this)).append(", ").append(getDates(this));
 
-        sb.append(", ").append(t).append("\n");
+            String t = "";
+            if (String.valueOf(getGender()).equals("Male")) t = "м";
+            if (String.valueOf(getGender()).equals("Female")) t = "ж";
 
-        if (spouse != null)  sb.append("супруг(а): ").append(getNamesAndID(spouse).append(", ").append(getDates(spouse)));
-        else sb.append("супруг(а): нет информации");
-        sb.append("\n");
+            sb.append(", ").append(t).append("\n");
 
-        sb.append(getChildrenInf(this));
-        sb.append(getParentsInf(this));
-        sb.append("\n");
-        return   sb.toString();
-    }
-    private StringBuilder getChildrenInf(Human h) {
-        StringBuilder sb = new StringBuilder();
-        if (h.children != null) {
-            sb.append("дети: ");
-            for (var i: h.children) {
-                sb.append(getNamesAndID(i).append(", ").append(" ").append(getDates(i)));
-            }
+            if (spouse != null)
+                sb.append("супруг(а): ").append(getNamesAndID(spouse).append(", ").append(getDates(spouse)));
+            else sb.append("супруг(а): нет информации");
             sb.append("\n");
-        }
-        else sb.append("детей нет (либо нет инфоррмации,").append("\n");
+
+            sb.append(getChildrenInf(this));
+            sb.append(getParentsInf(this));
+            sb.append("\n");
+            return sb.toString();
+
+    }
+
+    private StringBuilder getChildrenInf(Human h){
+            StringBuilder sb = new StringBuilder();
+            if (h.children != null) {
+                sb.append("дети: ");
+                for (var i : h.children) {
+                    sb.append(getNamesAndID(i).append(", ").append(" ").append(getDates(i)));
+                }
+                sb.append("\n");
+            } else sb.append("детей нет (либо нет инфоррмации,").append("\n");
+
         return sb;
 
     }
